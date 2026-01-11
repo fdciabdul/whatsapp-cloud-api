@@ -1,12 +1,12 @@
 [package]
-name = "whatsapp-cloud-api"
+name = "wacloudapi"
 version = "0.1.0"
 edition = "2021"
 authors = ["Abdul Muttaqin <cp@imtaqin.id>"]
 description = "Rust SDK for WhatsApp Cloud API (Meta Business Platform)"
 license = "MIT"
 repository = "https://github.com/fdciabdul/whatsapp-cloud-api-rs"
-documentation = "https://docs.rs/whatsapp-cloud-api"
+documentation = "https://docs.rs/wacloudapi"
 keywords = ["whatsapp", "cloud-api", "meta", "messaging", "sdk"]
 categories = ["api-bindings", "web-programming"]
 readme = "README.md"

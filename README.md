@@ -1,14 +1,25 @@
-# WhatsApp Cloud API SDK for Rust
+# wacloudapi
 
-A Rust SDK for the [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api) hosted by Meta. This library provides a type-safe, async interface for integrating WhatsApp Business messaging into your Rust applications.
+[![Crates.io](https://img.shields.io/crates/v/wacloudapi.svg)](https://crates.io/crates/wacloudapi)
+[![Documentation](https://docs.rs/wacloudapi/badge.svg)](https://docs.rs/wacloudapi)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A comprehensive Rust SDK for the [WhatsApp Cloud API](https://developers.facebook.com/docs/whatsapp/cloud-api) hosted by Meta. This library provides a type-safe, async interface for integrating WhatsApp Business messaging into your Rust applications.
 
 ## Features
 
 - **Messages API** - Send text, media, templates, interactive messages, and more
 - **Media API** - Upload, download, and manage media files
 - **Templates API** - Create and manage message templates
-- **Phone Numbers API** - Manage business phone numbers
-- **Webhooks** - Type-safe webhook payload parsing
+- **Phone Numbers API** - Manage business phone numbers and profiles
+- **Products/Catalog API** - Send product and catalog messages
+- **Flows API** - Create and manage WhatsApp Flows
+- **QR Codes API** - Generate and manage QR codes
+- **Analytics API** - Get conversation and template analytics
+- **Block Users API** - Block and unblock users
+- **WABA Management API** - Manage WhatsApp Business Accounts
+- **Webhooks** - Type-safe webhook payload parsing and subscription management
+- **Typing Indicators** - Show typing status to users
 - **Async/Await** - Built on Tokio for async operations
 - **Type-Safe** - Strongly typed API with Serde serialization
 
@@ -18,14 +29,20 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-whatsapp-cloud-api = "0.1"
+wacloudapi = "0.1"
 tokio = { version = "1", features = ["full"] }
+```
+
+Or use cargo:
+
+```bash
+cargo add wacloudapi
 ```
 
 ## Quick Start
 
 ```rust
-use whatsapp_cloud_api::Client;
+use wacloudapi::Client;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -139,7 +156,7 @@ let response = client
 ### Send Interactive Buttons
 
 ```rust
-use whatsapp_cloud_api::messages::Button;
+use wacloudapi::messages::Button;
 
 let buttons = vec![
     Button::reply("btn_yes", "Yes"),
@@ -162,7 +179,7 @@ let response = client
 ### Send Interactive List
 
 ```rust
-use whatsapp_cloud_api::messages::{ListSection, ListRow};
+use wacloudapi::messages::{ListSection, ListRow};
 
 let sections = vec![
     ListSection {
@@ -190,7 +207,7 @@ let response = client
 ### Send Template Message
 
 ```rust
-use whatsapp_cloud_api::messages::{TemplateComponent, TemplateParameter};
+use wacloudapi::messages::{TemplateComponent, TemplateParameter};
 
 let components = vec![
     TemplateComponent {
@@ -234,10 +251,80 @@ let response = client
     .await?;
 ```
 
+### Show Typing Indicator
+
+```rust
+client
+    .typing()
+    .show("628123456789")
+    .await?;
+```
+
+### Send Product Message
+
+```rust
+let response = client
+    .products()
+    .send_product("628123456789", "catalog_id", "product_id", Some("Check this out!"))
+    .await?;
+```
+
+### Send Flow Message
+
+```rust
+let response = client
+    .flows()
+    .send_flow(
+        "628123456789",
+        "flow_id",
+        "flow_token",
+        "Start Flow",
+        None,
+        None
+    )
+    .await?;
+```
+
+### Block/Unblock Users
+
+```rust
+// Block a user
+client.block().block_user("628123456789").await?;
+
+// Unblock a user
+client.block().unblock_user("628123456789").await?;
+
+// Get blocked users list
+let blocked = client.block().get_blocked_users().await?;
+```
+
+### Create QR Code
+
+```rust
+let qr = client
+    .qr_codes()
+    .create("Hello! How can I help you?", "PNG")
+    .await?;
+println!("QR Code URL: {}", qr.qr_image_url);
+```
+
+### Get Analytics
+
+```rust
+let analytics = client
+    .analytics("WABA_ID")
+    .get_conversation_analytics(
+        1704067200,  // start timestamp
+        1706745600,  // end timestamp
+        "DAILY"      // granularity
+    )
+    .await?;
+```
+
 ### Handle Webhooks
 
 ```rust
-use whatsapp_cloud_api::webhooks::{WebhookPayload, WebhookEvent};
+use wacloudapi::webhooks::{WebhookPayload, WebhookEvent};
 
 fn handle_webhook(payload: &str) -> Result<(), Box<dyn std::error::Error>> {
     let webhook: WebhookPayload = serde_json::from_str(payload)?;
@@ -275,6 +362,14 @@ fn handle_webhook(payload: &str) -> Result<(), Box<dyn std::error::Error>> {
 | `client.media()` | Access Media API |
 | `client.phone_numbers()` | Access Phone Numbers API |
 | `client.templates()` | Access Templates API |
+| `client.products()` | Access Products/Catalog API |
+| `client.flows()` | Access Flows API |
+| `client.typing()` | Access Typing Indicator API |
+| `client.qr_codes()` | Access QR Codes API |
+| `client.block()` | Access Block Users API |
+| `client.analytics(waba_id)` | Access Analytics API |
+| `client.waba(waba_id)` | Access WABA Management API |
+| `client.webhook_subscriptions(app_id)` | Access Webhook Subscriptions API |
 
 ### Messages API
 
