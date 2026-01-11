@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2025-01-11
+
 ### Added
 
 - **Products/Catalog API**:
@@ -60,6 +62,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Get current webhook subscriptions
   - Create/update webhook subscriptions
   - Delete webhook subscriptions
+
+- **CI/CD**:
+  - GitHub Actions for CI (test, fmt, clippy, docs, MSRV)
+  - Auto-release workflow with tag generation
+  - Auto-publish to crates.io
+
+- **Documentation**:
+  - LICENSE (MIT)
+  - CONTRIBUTING.md
+  - SECURITY.md
+  - Comprehensive README with examples
+
+### Changed
+
+- Renamed crate from `whatsapp-cloud-api` to `wacloudapi`
+- Updated MSRV to 1.83.0 (required by dependencies)
+
+### Fixed
+
+- Clippy warnings for too_many_arguments and uppercase acronyms
+- Code formatting with rustfmt
 
 ## [0.1.0] - 2025-01-11
 
@@ -132,5 +155,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `base64` for media encoding
 - `mime` / `mime_guess` for MIME type detection
 
-[Unreleased]: https://github.com/fdciabdul/whatsapp-cloud-api-rs/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/fdciabdul/whatsapp-cloud-api-rs/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/fdciabdul/whatsapp-cloud-api-rs/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/fdciabdul/whatsapp-cloud-api-rs/releases/tag/v0.1.0
