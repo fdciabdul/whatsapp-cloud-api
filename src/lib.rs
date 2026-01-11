@@ -21,7 +21,7 @@
 //! ## Quick Start
 //!
 //! ```rust,no_run
-//! use whatsapp_cloud_api::{Client, messages::TextMessage};
+//! use whatsapp_cloud_api::Client;
 //!
 //! #[tokio::main]
 //! async fn main() -> Result<(), Box<dyn std::error::Error>> {
