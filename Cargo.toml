@@ -1,0 +1,30 @@
+[package]
+name = "whatsapp-cloud-api"
+version = "0.1.0"
+edition = "2021"
+authors = ["Abdul Muttaqin <cp@imtaqin.id>"]
+description = "Rust SDK for WhatsApp Cloud API (Meta Business Platform)"
+license = "MIT"
+repository = "https://github.com/fdciabdul/whatsapp-cloud-api-rs"
+documentation = "https://docs.rs/whatsapp-cloud-api"
+keywords = ["whatsapp", "cloud-api", "meta", "messaging", "sdk"]
+categories = ["api-bindings", "web-programming"]
+readme = "README.md"
+
+[dependencies]
+reqwest = { version = "0.12", features = ["json", "multipart"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "2.0"
+tokio = { version = "1.0", features = ["full"] }
+url = "2.5"
+base64 = "0.22"
+mime = "0.3"
+mime_guess = "2.0"
+
+[dev-dependencies]
+tokio-test = "0.4"
+wiremock = "0.6"
+
+[features]
+default = []
