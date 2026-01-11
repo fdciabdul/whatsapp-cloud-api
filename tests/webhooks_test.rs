@@ -1,6 +1,6 @@
 //! Tests for Webhooks parsing
 
-use whatsapp_cloud_api::webhooks::{WebhookEvent, WebhookPayload};
+use wacloudapi::webhooks::{WebhookEvent, WebhookPayload};
 
 #[test]
 fn test_parse_text_message_webhook() {
@@ -37,7 +37,11 @@ fn test_parse_text_message_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::TextMessage { from, text, message_id } => {
+        WebhookEvent::TextMessage {
+            from,
+            text,
+            message_id,
+        } => {
             assert_eq!(from, "628111222333");
             assert_eq!(text, "Hello, World!");
             assert_eq!(message_id, "wamid.HBgM...");
@@ -86,7 +90,12 @@ fn test_parse_image_message_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::ImageMessage { from, media_id, caption, .. } => {
+        WebhookEvent::ImageMessage {
+            from,
+            media_id,
+            caption,
+            ..
+        } => {
             assert_eq!(from, "628111222333");
             assert_eq!(media_id, "media_123");
             assert_eq!(caption.as_ref().unwrap(), "Check this out!");
@@ -136,7 +145,12 @@ fn test_parse_button_reply_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::ButtonReply { from, button_id, button_title, .. } => {
+        WebhookEvent::ButtonReply {
+            from,
+            button_id,
+            button_title,
+            ..
+        } => {
             assert_eq!(from, "628999888777");
             assert_eq!(button_id, "btn_yes");
             assert_eq!(button_title, "Yes");
@@ -187,7 +201,12 @@ fn test_parse_list_reply_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::ListReply { from, row_id, row_title, .. } => {
+        WebhookEvent::ListReply {
+            from,
+            row_id,
+            row_title,
+            ..
+        } => {
             assert_eq!(from, "628555666777");
             assert_eq!(row_id, "prod_001");
             assert_eq!(row_title, "Product A");
@@ -226,7 +245,10 @@ fn test_parse_message_status_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::MessageDelivered { message_id, recipient } => {
+        WebhookEvent::MessageDelivered {
+            message_id,
+            recipient,
+        } => {
             assert_eq!(message_id, "wamid.STATUS123");
             assert_eq!(recipient, "628111222333");
         }
@@ -272,7 +294,11 @@ fn test_parse_reaction_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::Reaction { from, message_id, emoji } => {
+        WebhookEvent::Reaction {
+            from,
+            message_id,
+            emoji,
+        } => {
             assert_eq!(from, "628444555666");
             assert_eq!(message_id, "wamid.TARGET123");
             assert_eq!(emoji, "👍");
@@ -321,7 +347,12 @@ fn test_parse_location_message_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::LocationMessage { from, latitude, longitude, message_id } => {
+        WebhookEvent::LocationMessage {
+            from,
+            latitude,
+            longitude,
+            message_id,
+        } => {
             assert_eq!(from, "628777888999");
             assert!((*latitude - -6.2088).abs() < 0.0001);
             assert!((*longitude - 106.8456).abs() < 0.0001);
@@ -370,7 +401,12 @@ fn test_parse_video_message_webhook() {
 
     assert_eq!(events.len(), 1);
     match &events[0] {
-        WebhookEvent::VideoMessage { from, media_id, message_id, .. } => {
+        WebhookEvent::VideoMessage {
+            from,
+            media_id,
+            message_id,
+            ..
+        } => {
             assert_eq!(from, "628333444555");
             assert_eq!(media_id, "video_media_123");
             assert_eq!(message_id, "wamid.VID123");

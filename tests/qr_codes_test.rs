@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::qr_codes::QrImageFormat;
+use wacloudapi::qr_codes::QrImageFormat;
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 

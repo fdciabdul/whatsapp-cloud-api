@@ -30,6 +30,7 @@ impl FlowsApi {
     /// * `header` - Optional header text
     /// * `body_text` - Body text
     /// * `footer` - Optional footer text
+    #[allow(clippy::too_many_arguments)]
     pub async fn send_flow(
         &self,
         to: &str,

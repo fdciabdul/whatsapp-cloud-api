@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::phone_numbers::BusinessProfileUpdate;
+use wacloudapi::phone_numbers::BusinessProfileUpdate;
 use wiremock::matchers::{body_json, method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 

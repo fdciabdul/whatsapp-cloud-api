@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::analytics::Granularity;
+use wacloudapi::analytics::Granularity;
 use wiremock::matchers::{method, path, query_param};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 

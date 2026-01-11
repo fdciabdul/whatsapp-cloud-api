@@ -147,10 +147,7 @@ impl ProductsApi {
 
     /// Get commerce settings
     pub async fn get_commerce_settings(&self) -> Result<CommerceSettings> {
-        let url = format!(
-            "{}/whatsapp_commerce_settings",
-            self.client.base_url()
-        );
+        let url = format!("{}/whatsapp_commerce_settings", self.client.base_url());
         self.client.get(&url).await
     }
 
@@ -165,10 +162,7 @@ impl ProductsApi {
             is_cart_enabled,
         };
 
-        let url = format!(
-            "{}/whatsapp_commerce_settings",
-            self.client.base_url()
-        );
+        let url = format!("{}/whatsapp_commerce_settings", self.client.base_url());
         self.client.post(&url, &body).await
     }
 }

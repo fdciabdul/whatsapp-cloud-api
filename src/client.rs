@@ -44,12 +44,17 @@ impl Client {
     /// # Example
     ///
     /// ```rust
-    /// use whatsapp_cloud_api::Client;
+    /// use wacloudapi::Client;
     ///
     /// let client = Client::new("your_access_token", "your_phone_number_id");
     /// ```
     pub fn new(access_token: impl Into<String>, phone_number_id: impl Into<String>) -> Self {
-        Self::with_config(access_token, phone_number_id, DEFAULT_API_VERSION, GRAPH_API_URL)
+        Self::with_config(
+            access_token,
+            phone_number_id,
+            DEFAULT_API_VERSION,
+            GRAPH_API_URL,
+        )
     }
 
     /// Create a new client with custom API version
@@ -118,10 +123,7 @@ impl Client {
             HeaderValue::from_str(&format!("Bearer {}", self.inner.access_token))
                 .expect("Invalid access token"),
         );
-        headers.insert(
-            CONTENT_TYPE,
-            HeaderValue::from_static("application/json"),
-        );
+        headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
         headers
     }
 
@@ -195,10 +197,7 @@ impl Client {
     }
 
     /// Handle API response
-    async fn handle_response<T: DeserializeOwned>(
-        &self,
-        response: reqwest::Response,
-    ) -> Result<T> {
+    async fn handle_response<T: DeserializeOwned>(&self, response: reqwest::Response) -> Result<T> {
         let status = response.status();
         let body = response.text().await?;
 

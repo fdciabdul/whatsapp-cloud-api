@@ -17,7 +17,9 @@ impl WebhookSubscriptionsApi {
 
     /// Get current webhook subscriptions
     pub async fn get(&self) -> Result<WebhookSubscriptionsResponse> {
-        let url = self.client.endpoint_url(&format!("{}/subscriptions", self.app_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/subscriptions", self.app_id));
         self.client.get(&url).await
     }
 
@@ -41,7 +43,9 @@ impl WebhookSubscriptionsApi {
             fields: fields.iter().map(|f| f.as_str().to_string()).collect(),
         };
 
-        let url = self.client.endpoint_url(&format!("{}/subscriptions", self.app_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/subscriptions", self.app_id));
         self.client.post(&url, &body).await
     }
 
@@ -51,16 +55,17 @@ impl WebhookSubscriptionsApi {
     ///
     /// * `object` - Object type to unsubscribe (e.g., "whatsapp_business_account")
     pub async fn unsubscribe(&self, object: &str) -> Result<crate::types::SuccessResponse> {
-        let url = self.client.endpoint_url(&format!(
-            "{}/subscriptions?object={}",
-            self.app_id, object
-        ));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/subscriptions?object={}", self.app_id, object));
         self.client.delete(&url).await
     }
 
     /// Delete all webhook subscriptions
     pub async fn unsubscribe_all(&self) -> Result<crate::types::SuccessResponse> {
-        let url = self.client.endpoint_url(&format!("{}/subscriptions", self.app_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/subscriptions", self.app_id));
         self.client.delete(&url).await
     }
 }

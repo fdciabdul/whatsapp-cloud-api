@@ -27,7 +27,7 @@ impl TypingApi {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use whatsapp_cloud_api::Client;
+    /// # use wacloudapi::Client;
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("token", "phone_id");
     ///

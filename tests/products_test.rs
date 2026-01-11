@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::products::{ProductItem, ProductSection};
+use wacloudapi::products::{ProductItem, ProductSection};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
@@ -14,7 +14,9 @@ async fn test_send_product() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.product123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.product123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -40,7 +42,9 @@ async fn test_send_product_list() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.prodlist123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.prodlist123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -84,7 +88,9 @@ async fn test_send_catalog() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.catalog123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.catalog123")),
+        )
         .mount(&mock_server)
         .await;
 

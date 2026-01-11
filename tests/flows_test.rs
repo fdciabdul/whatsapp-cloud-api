@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::flows::{FlowAction, FlowCategory};
+use wacloudapi::flows::{FlowAction, FlowCategory};
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
@@ -45,7 +45,9 @@ async fn test_send_flow_with_data() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.flowdata123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.flowdata123")),
+        )
         .mount(&mock_server)
         .await;
 

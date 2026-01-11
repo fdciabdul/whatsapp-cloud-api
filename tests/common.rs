@@ -1,6 +1,8 @@
 //! Common test utilities and mock server setup
 
-use whatsapp_cloud_api::Client;
+#![allow(dead_code)]
+
+use wacloudapi::Client;
 use wiremock::MockServer;
 
 /// Test phone number ID

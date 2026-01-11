@@ -77,28 +77,19 @@ impl WabaApi {
 
     /// Get phone numbers for this WABA
     pub async fn get_phone_numbers(&self) -> Result<PhoneNumbersResponse> {
-        let url = format!(
-            "{}/phone_numbers",
-            self.client.endpoint_url(&self.waba_id)
-        );
+        let url = format!("{}/phone_numbers", self.client.endpoint_url(&self.waba_id));
         self.client.get(&url).await
     }
 
     /// Get assigned users for this WABA
     pub async fn get_assigned_users(&self) -> Result<AssignedUsersResponse> {
-        let url = format!(
-            "{}/assigned_users",
-            self.client.endpoint_url(&self.waba_id)
-        );
+        let url = format!("{}/assigned_users", self.client.endpoint_url(&self.waba_id));
         self.client.get(&url).await
     }
 
     /// Get system users for this WABA
     pub async fn get_system_users(&self) -> Result<SystemUsersResponse> {
-        let url = format!(
-            "{}/system_users",
-            self.client.endpoint_url(&self.waba_id)
-        );
+        let url = format!("{}/system_users", self.client.endpoint_url(&self.waba_id));
         self.client.get(&url).await
     }
 

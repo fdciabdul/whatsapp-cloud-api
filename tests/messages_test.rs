@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::messages::{
+use wacloudapi::messages::{
     Button, Contact, ContactName, ContactPhone, ListRow, ListSection, TemplateComponent,
     TemplateParameter,
 };
@@ -58,7 +58,9 @@ async fn test_send_text_with_preview() {
                 "body": "Check this: https://example.com"
             }
         })))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.preview123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.preview123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -121,7 +123,9 @@ async fn test_send_reaction() {
                 "emoji": "👍"
             }
         })))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.reaction123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.reaction123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -151,7 +155,9 @@ async fn test_remove_reaction() {
                 "emoji": ""
             }
         })))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.unreact123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.unreact123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -195,7 +201,9 @@ async fn test_send_image_id() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.imageid123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.imageid123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -239,7 +247,9 @@ async fn test_send_video_id() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.videoid123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.videoid123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -279,7 +289,9 @@ async fn test_send_audio_id() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.audioid123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.audioid123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -330,7 +342,12 @@ async fn test_send_document_id() {
 
     let response = client
         .messages()
-        .send_document_id("628123456789", "doc_media_id", Some("file.pdf"), Some("Doc"))
+        .send_document_id(
+            "628123456789",
+            "doc_media_id",
+            Some("file.pdf"),
+            Some("Doc"),
+        )
         .await
         .unwrap();
 
@@ -344,7 +361,9 @@ async fn test_send_sticker_url() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.sticker123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.sticker123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -364,7 +383,9 @@ async fn test_send_sticker_id() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.stickerid123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.stickerid123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -410,7 +431,9 @@ async fn test_send_contacts() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.contact123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.contact123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -451,7 +474,9 @@ async fn test_send_template() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.template123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.template123")),
+        )
         .mount(&mock_server)
         .await;
 
@@ -521,7 +546,9 @@ async fn test_send_buttons() {
 
     Mock::given(method("POST"))
         .and(path(format!("/v21.0/{}/messages", TEST_PHONE_ID)))
-        .respond_with(ResponseTemplate::new(200).set_body_json(message_response("wamid.buttons123")))
+        .respond_with(
+            ResponseTemplate::new(200).set_body_json(message_response("wamid.buttons123")),
+        )
         .mount(&mock_server)
         .await;
 

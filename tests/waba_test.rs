@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::waba::WebhookField;
+use wacloudapi::waba::WebhookField;
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
@@ -43,7 +43,11 @@ async fn test_subscribe_webhooks() {
         .mount(&mock_server)
         .await;
 
-    let response = client.waba(TEST_WABA_ID).subscribe_webhooks().await.unwrap();
+    let response = client
+        .waba(TEST_WABA_ID)
+        .subscribe_webhooks()
+        .await
+        .unwrap();
 
     assert!(response.success);
 }
@@ -111,11 +115,17 @@ async fn test_get_subscribed_apps() {
         .mount(&mock_server)
         .await;
 
-    let response = client.waba(TEST_WABA_ID).get_subscribed_apps().await.unwrap();
+    let response = client
+        .waba(TEST_WABA_ID)
+        .get_subscribed_apps()
+        .await
+        .unwrap();
 
     assert_eq!(response.data.len(), 1);
     assert_eq!(response.data[0].id, "app_123");
-    assert!(response.data[0].subscribed_fields.contains(&"messages".to_string()));
+    assert!(response.data[0]
+        .subscribed_fields
+        .contains(&"messages".to_string()));
 }
 
 #[tokio::test]
@@ -175,7 +185,11 @@ async fn test_get_assigned_users() {
         .mount(&mock_server)
         .await;
 
-    let response = client.waba(TEST_WABA_ID).get_assigned_users().await.unwrap();
+    let response = client
+        .waba(TEST_WABA_ID)
+        .get_assigned_users()
+        .await
+        .unwrap();
 
     assert_eq!(response.data.len(), 2);
     assert!(response.data[0].tasks.contains(&"MANAGE".to_string()));

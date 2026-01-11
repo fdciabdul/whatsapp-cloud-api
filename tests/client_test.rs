@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::Client;
+use wacloudapi::Client;
 use wiremock::matchers::{header, method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
@@ -24,17 +24,9 @@ fn test_client_with_version() {
 
 #[test]
 fn test_client_base_url() {
-    let client = Client::with_config(
-        "test_token",
-        "phone_123",
-        "v21.0",
-        "https://custom.api.com",
-    );
+    let client = Client::with_config("test_token", "phone_123", "v21.0", "https://custom.api.com");
 
-    assert_eq!(
-        client.base_url(),
-        "https://custom.api.com/v21.0/phone_123"
-    );
+    assert_eq!(client.base_url(), "https://custom.api.com/v21.0/phone_123");
 }
 
 #[test]
@@ -89,14 +81,13 @@ async fn test_api_error_handling() {
         .mount(&mock_server)
         .await;
 
-    let result = client
-        .messages()
-        .send_text("invalid", "Hello")
-        .await;
+    let result = client.messages().send_text("invalid", "Hello").await;
 
     assert!(result.is_err());
     let error = result.unwrap_err();
-    assert!(error.to_string().contains("Invalid phone number") || error.to_string().contains("100"));
+    assert!(
+        error.to_string().contains("Invalid phone number") || error.to_string().contains("100")
+    );
 }
 
 #[tokio::test]
@@ -117,10 +108,7 @@ async fn test_rate_limit_error() {
         .mount(&mock_server)
         .await;
 
-    let result = client
-        .messages()
-        .send_text("628123456789", "Hello")
-        .await;
+    let result = client.messages().send_text("628123456789", "Hello").await;
 
     assert!(result.is_err());
 }
@@ -143,10 +131,7 @@ async fn test_unauthorized_error() {
         .mount(&mock_server)
         .await;
 
-    let result = client
-        .messages()
-        .send_text("628123456789", "Hello")
-        .await;
+    let result = client.messages().send_text("628123456789", "Hello").await;
 
     assert!(result.is_err());
 }
@@ -163,10 +148,7 @@ async fn test_authorization_header() {
         .mount(&mock_server)
         .await;
 
-    let result = client
-        .messages()
-        .send_text("628123456789", "Hello")
-        .await;
+    let result = client.messages().send_text("628123456789", "Hello").await;
 
     assert!(result.is_ok());
 }

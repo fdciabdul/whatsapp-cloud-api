@@ -21,7 +21,9 @@ impl TemplatesApi {
     ///
     /// * `waba_id` - WhatsApp Business Account ID
     pub async fn list(&self, waba_id: &str) -> Result<TemplatesResponse> {
-        let url = self.client.endpoint_url(&format!("{}/message_templates", waba_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/message_templates", waba_id));
         self.client.get(&url).await
     }
 
@@ -41,10 +43,9 @@ impl TemplatesApi {
 
     /// Get a specific template by name
     pub async fn get_by_name(&self, waba_id: &str, name: &str) -> Result<TemplatesResponse> {
-        let url = self.client.endpoint_url(&format!(
-            "{}/message_templates?name={}",
-            waba_id, name
-        ));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/message_templates?name={}", waba_id, name));
         self.client.get(&url).await
     }
 
@@ -54,7 +55,9 @@ impl TemplatesApi {
         waba_id: &str,
         template: &CreateTemplate,
     ) -> Result<CreateTemplateResponse> {
-        let url = self.client.endpoint_url(&format!("{}/message_templates", waba_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/message_templates", waba_id));
         self.client.post(&url, template).await
     }
 
@@ -169,7 +172,11 @@ pub struct CreateTemplate {
 
 impl CreateTemplate {
     /// Create a new template builder
-    pub fn new(name: impl Into<String>, category: TemplateCategory, language: impl Into<String>) -> Self {
+    pub fn new(
+        name: impl Into<String>,
+        category: TemplateCategory,
+        language: impl Into<String>,
+    ) -> Self {
         Self {
             name: name.into(),
             category: category.as_str().to_string(),

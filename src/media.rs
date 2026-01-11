@@ -29,7 +29,7 @@ impl MediaApi {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use whatsapp_cloud_api::Client;
+    /// # use wacloudapi::Client;
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("token", "phone_id");
     /// let response = client.media().upload_file("./image.jpg").await?;
@@ -134,10 +134,7 @@ impl MediaApi {
             .client
             .http_client()
             .get(&media_info.url)
-            .header(
-                "Authorization",
-                format!("Bearer {}", self.get_token()),
-            )
+            .header("Authorization", format!("Bearer {}", self.get_token()))
             .send()
             .await?;
 
@@ -239,11 +236,11 @@ impl MediaType {
     /// Get max file size in bytes
     pub fn max_size(&self) -> u64 {
         match self {
-            MediaType::Audio => 16 * 1024 * 1024, // 16 MB
+            MediaType::Audio => 16 * 1024 * 1024,     // 16 MB
             MediaType::Document => 100 * 1024 * 1024, // 100 MB
-            MediaType::Image => 5 * 1024 * 1024,  // 5 MB
-            MediaType::Sticker => 500 * 1024,     // 500 KB
-            MediaType::Video => 16 * 1024 * 1024, // 16 MB
+            MediaType::Image => 5 * 1024 * 1024,      // 5 MB
+            MediaType::Sticker => 500 * 1024,         // 500 KB
+            MediaType::Video => 16 * 1024 * 1024,     // 16 MB
         }
     }
 }

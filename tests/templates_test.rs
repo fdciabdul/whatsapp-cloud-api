@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::templates::{CreateTemplate, TemplateCategory, TemplateStatus};
+use wacloudapi::templates::{CreateTemplate, TemplateCategory, TemplateStatus};
 use wiremock::matchers::{method, path, query_param};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 

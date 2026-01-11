@@ -25,7 +25,7 @@ impl MessagesApi {
     /// # Example
     ///
     /// ```rust,no_run
-    /// # use whatsapp_cloud_api::Client;
+    /// # use wacloudapi::Client;
     /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
     /// let client = Client::new("token", "phone_id");
     /// let response = client.messages().send_text("628123456789", "Hello!").await?;

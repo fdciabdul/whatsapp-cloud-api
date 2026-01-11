@@ -21,7 +21,9 @@ impl PhoneNumbersApi {
     ///
     /// * `waba_id` - WhatsApp Business Account ID
     pub async fn list(&self, waba_id: &str) -> Result<PhoneNumbersResponse> {
-        let url = self.client.endpoint_url(&format!("{}/phone_numbers", waba_id));
+        let url = self
+            .client
+            .endpoint_url(&format!("{}/phone_numbers", waba_id));
         self.client.get(&url).await
     }
 

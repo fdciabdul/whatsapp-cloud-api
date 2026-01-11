@@ -3,7 +3,7 @@
 mod common;
 
 use common::*;
-use whatsapp_cloud_api::webhooks_management::SubscriptionField;
+use wacloudapi::webhooks_management::SubscriptionField;
 use wiremock::matchers::{method, path};
 use wiremock::{Mock, MockServer, ResponseTemplate};
 
@@ -111,10 +111,7 @@ async fn test_unsubscribe_webhook() {
     let client = create_test_client(&mock_server);
 
     Mock::given(method("DELETE"))
-        .and(path(format!(
-            "/v21.0/{}/subscriptions",
-            TEST_APP_ID
-        )))
+        .and(path(format!("/v21.0/{}/subscriptions", TEST_APP_ID)))
         .respond_with(ResponseTemplate::new(200).set_body_json(success_response()))
         .mount(&mock_server)
         .await;

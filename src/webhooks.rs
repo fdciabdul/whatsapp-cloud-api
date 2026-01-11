@@ -5,7 +5,7 @@
 //! # Example
 //!
 //! ```rust,no_run
-//! use whatsapp_cloud_api::webhooks::{WebhookPayload, WebhookEvent};
+//! use wacloudapi::webhooks::{WebhookPayload, WebhookEvent};
 //!
 //! fn handle_webhook(payload: &str) -> Result<(), Box<dyn std::error::Error>> {
 //!     let webhook: WebhookPayload = serde_json::from_str(payload)?;
@@ -489,35 +489,94 @@ pub struct ErrorData {
 #[derive(Debug, Clone, PartialEq)]
 pub enum WebhookEvent {
     /// Text message received
-    TextMessage { from: String, text: String, message_id: String },
+    TextMessage {
+        from: String,
+        text: String,
+        message_id: String,
+    },
     /// Image message received
-    ImageMessage { from: String, media_id: String, message_id: String, caption: Option<String> },
+    ImageMessage {
+        from: String,
+        media_id: String,
+        message_id: String,
+        caption: Option<String>,
+    },
     /// Video message received
-    VideoMessage { from: String, media_id: String, message_id: String, caption: Option<String> },
+    VideoMessage {
+        from: String,
+        media_id: String,
+        message_id: String,
+        caption: Option<String>,
+    },
     /// Audio message received
-    AudioMessage { from: String, media_id: String, message_id: String },
+    AudioMessage {
+        from: String,
+        media_id: String,
+        message_id: String,
+    },
     /// Document message received
-    DocumentMessage { from: String, media_id: String, message_id: String, filename: Option<String> },
+    DocumentMessage {
+        from: String,
+        media_id: String,
+        message_id: String,
+        filename: Option<String>,
+    },
     /// Sticker message received
-    StickerMessage { from: String, media_id: String, message_id: String },
+    StickerMessage {
+        from: String,
+        media_id: String,
+        message_id: String,
+    },
     /// Location message received
-    LocationMessage { from: String, latitude: f64, longitude: f64, message_id: String },
+    LocationMessage {
+        from: String,
+        latitude: f64,
+        longitude: f64,
+        message_id: String,
+    },
     /// Contact message received
     ContactMessage { from: String, message_id: String },
     /// Reaction received
-    Reaction { from: String, message_id: String, emoji: String },
+    Reaction {
+        from: String,
+        message_id: String,
+        emoji: String,
+    },
     /// Interactive button reply
-    ButtonReply { from: String, button_id: String, button_title: String, message_id: String },
+    ButtonReply {
+        from: String,
+        button_id: String,
+        button_title: String,
+        message_id: String,
+    },
     /// Interactive list reply
-    ListReply { from: String, row_id: String, row_title: String, message_id: String },
+    ListReply {
+        from: String,
+        row_id: String,
+        row_title: String,
+        message_id: String,
+    },
     /// Message sent
-    MessageSent { message_id: String, recipient: String },
+    MessageSent {
+        message_id: String,
+        recipient: String,
+    },
     /// Message delivered
-    MessageDelivered { message_id: String, recipient: String },
+    MessageDelivered {
+        message_id: String,
+        recipient: String,
+    },
     /// Message read
-    MessageRead { message_id: String, recipient: String },
+    MessageRead {
+        message_id: String,
+        recipient: String,
+    },
     /// Message failed
-    MessageFailed { message_id: String, recipient: String, error_code: i32 },
+    MessageFailed {
+        message_id: String,
+        recipient: String,
+        error_code: i32,
+    },
     /// Unknown event type
     Unknown,
 }
@@ -727,7 +786,7 @@ pub fn verify_signature(payload: &[u8], signature: &str, app_secret: &str) -> bo
     let sig = signature.strip_prefix("sha256=").unwrap_or(signature);
 
     // Compute HMAC-SHA256
-    let key = hmac_sha256::HMAC::mac(payload, app_secret.as_bytes());
+    let key = hmac_sha256::Hmac::mac(payload, app_secret.as_bytes());
     let mut computed = String::with_capacity(64);
     for byte in key {
         write!(&mut computed, "{:02x}", byte).unwrap();
@@ -739,9 +798,9 @@ pub fn verify_signature(payload: &[u8], signature: &str, app_secret: &str) -> bo
 
 // Simple HMAC-SHA256 implementation
 mod hmac_sha256 {
-    pub struct HMAC;
+    pub struct Hmac;
 
-    impl HMAC {
+    impl Hmac {
         pub fn mac(data: &[u8], key: &[u8]) -> [u8; 32] {
             // This is a placeholder - in production, use a proper crypto library
             // For now, we just hash the data (not secure, just for compilation)
