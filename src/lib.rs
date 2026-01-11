@@ -10,7 +10,13 @@
 //! - **Media**: Upload, download, and manage media files
 //! - **Templates**: Work with message templates
 //! - **Phone Numbers**: Manage business phone numbers
-//! - **Webhooks**: Type-safe webhook payload parsing
+//! - **Products**: Catalog and product messages
+//! - **Flows**: WhatsApp Flows support
+//! - **Analytics**: Conversation and template analytics
+//! - **QR Codes**: Generate and manage QR codes
+//! - **Block Users**: Block/unblock users
+//! - **WABA Management**: WhatsApp Business Account management
+//! - **Webhooks**: Type-safe webhook payload parsing and subscription management
 //!
 //! ## Quick Start
 //!
@@ -32,14 +38,22 @@
 //! }
 //! ```
 
+pub mod analytics;
+pub mod block;
 pub mod client;
 pub mod error;
+pub mod flows;
 pub mod media;
 pub mod messages;
 pub mod phone_numbers;
+pub mod products;
+pub mod qr_codes;
 pub mod templates;
 pub mod types;
+pub mod typing;
+pub mod waba;
 pub mod webhooks;
+pub mod webhooks_management;
 
 pub use client::Client;
 pub use error::{Error, Result};

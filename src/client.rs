@@ -1,11 +1,19 @@
 //! HTTP client for the WhatsApp Cloud API
 
+use crate::analytics::AnalyticsApi;
+use crate::block::BlockApi;
 use crate::error::{ApiErrorResponse, Error, Result};
+use crate::flows::FlowsApi;
 use crate::media::MediaApi;
 use crate::messages::MessagesApi;
 use crate::phone_numbers::PhoneNumbersApi;
+use crate::products::ProductsApi;
+use crate::qr_codes::QrCodesApi;
 use crate::templates::TemplatesApi;
 use crate::types::{DEFAULT_API_VERSION, GRAPH_API_URL};
+use crate::typing::TypingApi;
+use crate::waba::WabaApi;
+use crate::webhooks_management::WebhookSubscriptionsApi;
 use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE};
 use serde::de::DeserializeOwned;
 use serde::Serialize;
@@ -233,6 +241,58 @@ impl Client {
     /// Access the Templates API
     pub fn templates(&self) -> TemplatesApi {
         TemplatesApi::new(self.clone())
+    }
+
+    /// Access the Products/Catalog API
+    pub fn products(&self) -> ProductsApi {
+        ProductsApi::new(self.clone())
+    }
+
+    /// Access the Flows API
+    pub fn flows(&self) -> FlowsApi {
+        FlowsApi::new(self.clone())
+    }
+
+    /// Access the Typing Indicator API
+    pub fn typing(&self) -> TypingApi {
+        TypingApi::new(self.clone())
+    }
+
+    /// Access the QR Codes API
+    pub fn qr_codes(&self) -> QrCodesApi {
+        QrCodesApi::new(self.clone())
+    }
+
+    /// Access the Block Users API
+    pub fn block(&self) -> BlockApi {
+        BlockApi::new(self.clone())
+    }
+
+    /// Access the Analytics API
+    ///
+    /// # Arguments
+    ///
+    /// * `waba_id` - WhatsApp Business Account ID
+    pub fn analytics(&self, waba_id: impl Into<String>) -> AnalyticsApi {
+        AnalyticsApi::new(self.clone(), waba_id.into())
+    }
+
+    /// Access the WABA Management API
+    ///
+    /// # Arguments
+    ///
+    /// * `waba_id` - WhatsApp Business Account ID
+    pub fn waba(&self, waba_id: impl Into<String>) -> WabaApi {
+        WabaApi::new(self.clone(), waba_id.into())
+    }
+
+    /// Access the Webhook Subscriptions API
+    ///
+    /// # Arguments
+    ///
+    /// * `app_id` - Facebook App ID
+    pub fn webhook_subscriptions(&self, app_id: impl Into<String>) -> WebhookSubscriptionsApi {
+        WebhookSubscriptionsApi::new(self.clone(), app_id.into())
     }
 }
 
